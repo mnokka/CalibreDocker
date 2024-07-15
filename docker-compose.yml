@@ -1,0 +1,21 @@
+services:
+  calibre:
+    image: lscr.io/linuxserver/calibre:7.14.0
+    container_name: calibre
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - PASSWORD= #optional
+      - CLI_ARGS= #optional
+      - TITLE="Kirjasto"
+    volumes:
+      - /media/mika/e821e31d-8af3-4cd0-9fef-a5a11faa8b8e/CALIBRE_DATA:/config # books and data in another HD
+      - /home/mika/LINUX_ADMIN23_KIRJOJA:/IMPORT_BOOKS_DIR # directory for books importing 
+    ports:
+      - 5555:8080 # only this one seems to work, localhost:5555
+      - 5556:8181
+      - 5557:8081
+    restart: unless-stopped
